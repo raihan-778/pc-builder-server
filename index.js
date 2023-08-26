@@ -30,6 +30,8 @@ app.use(cors());
  
   
  
+     //get api for all products
+     
  
      app.get('/products', async(req,res)=>{
         const query={}
