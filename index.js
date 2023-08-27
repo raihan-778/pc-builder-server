@@ -27,6 +27,8 @@ app.use(cors());
      console.log("PC Builder Server is Running")
      const pcComponents=client.db("pc-builder").collection("featured-products");
      console.log("Pinged your deployment. You successfully connected to MongoDB!");
+
+     const categories = client.db("pc-builder").collection("component-categories");
  
   
  
@@ -37,7 +39,14 @@ app.use(cors());
         const query={}
        const featuredProducts = await pcComponents.find(query).toArray();
 
-       res.send({ message: "success", status: 2000, data: featuredProducts });
+       res.send({ message: "success", status: 200, data: featuredProducts });
+     })
+
+     //get api for featured categories
+     app.get('/categories', async(req,res)=>{
+      const query={}
+      const featuredCategories = await categories.find(query).toArray()
+      res.send({message:"success",status:200,data:featuredCategories})
      })
        
     
