@@ -28,7 +28,8 @@ app.use(cors());
      const pcComponents=client.db("pc-builder").collection("featured-products");
      console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
-     const categories = client.db("pc-builder").collection("component-categories");
+    //  const categories = client.db("pc-builder").collection("component-categories");
+     const categoryItems = client.db("pc-builder").collection("category-products");
  
   
  
@@ -45,9 +46,17 @@ app.use(cors());
      //get api for featured categories
      app.get('/categories', async(req,res)=>{
       const query={}
-      const featuredCategories = await categories.find(query).toArray()
+      const featuredCategories = await categoryItems.find(query).toArray()
       res.send({message:"success",status:200,data:featuredCategories})
      })
+//get dynamic route using id
+     app.get("/categories/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const result = await categoryItems.findOne({ _id: ObjectId(id) });
+      console.log(result);
+      res.send(result);
+    });
        
     
    } finally {
