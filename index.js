@@ -23,7 +23,7 @@ app.use(cors());
   
    try {
      // Connect the client to the server	(optional starting in v4.7)
-     await client.connect();
+    //  await client.connect();
      console.log("PC Builder Server is Running")
      const pcComponents=client.db("pc-builder").collection("featured-products");
      console.log("Pinged your deployment. You successfully connected to MongoDB!");
