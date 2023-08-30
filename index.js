@@ -30,6 +30,7 @@ app.use(cors());
 
     //  const categories = client.db("pc-builder").collection("component-categories");
      const categoryItems = client.db("pc-builder").collection("category-products");
+     const pcBuilderComponent = client.db("pc-builder").collection("pc-components");
  
   
  
@@ -61,6 +62,39 @@ app.use(cors());
       const id = req.params.id;
 
       const result = await categoryItems.findOne({ _id: ObjectId(id) });
+      console.log(result);
+      res.send(result);
+    });
+
+    //api for pc builder
+
+    app.get("/components", async (req, res) => {
+      const cursor = pcBuilderComponent.find({});
+      const product = await cursor.toArray();
+
+      res.send({ status: true, data: product });
+    });
+
+    app.post("/component", async (req, res) => {
+      const product = req.body;
+
+      const result = await pcBuilderComponent.insertOne(product);
+
+      res.send(result);
+    });
+
+    app.get("/components/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const result = await pcBuilderComponent.findOne({ _id: ObjectId(id) });
+      console.log(result);
+      res.send(result);
+    });
+
+    app.delete("/components/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const result = await pcBuilderComponent.deleteOne({ _id: ObjectId(id) });
       console.log(result);
       res.send(result);
     });
