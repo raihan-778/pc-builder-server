@@ -33,15 +33,22 @@ app.use(cors());
  
   
  
-     //get api for all products
-     
- 
+     //get api for all products 
      app.get('/products', async(req,res)=>{
         const query={}
        const featuredProducts = await pcComponents.find(query).toArray();
 
        res.send({ message: "success", status: 200, data: featuredProducts });
      })
+
+    //get dynamic route using id
+     app.get("/products/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const result = await pcComponents.findOne({ _id: ObjectId(id) });
+      console.log(result);
+      res.send(result);
+    });
 
      //get api for featured categories
      app.get('/categories', async(req,res)=>{
@@ -57,6 +64,8 @@ app.use(cors());
       console.log(result);
       res.send(result);
     });
+      
+ 
        
     
    } finally {
