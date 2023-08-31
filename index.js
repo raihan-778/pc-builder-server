@@ -30,7 +30,7 @@ app.use(cors());
 
     //  const categories = client.db("pc-builder").collection("component-categories");
      const categoryItems = client.db("pc-builder").collection("category-products");
-     const pcBuilderComponent = client.db("pc-builder").collection("pc-components");
+     const pcBuilderComponent = client.db("pc-builder").collection("components");
  
   
  
@@ -66,6 +66,7 @@ app.use(cors());
       res.send(result);
     });
 
+
     //api for pc builder
 
     app.get("/components", async (req, res) => {
@@ -83,13 +84,21 @@ app.use(cors());
       res.send(result);
     });
 
-    app.get("/components/:id", async (req, res) => {
+    //get dynamic route using id
+    app.get("/component/:id", async (req, res) => {
       const id = req.params.id;
-
-      const result = await pcBuilderComponent.findOne({ _id: ObjectId(id) });
+      const result = await pcBuilderComponent.findOne({id: id});
       console.log(result);
       res.send(result);
     });
+
+    // app.get("/components/:id", async (req, res) => {
+    //   const id = req.params.id;
+
+    //   const result = await pcBuilderComponent.findOne({ _id: ObjectId(id) });
+    //   console.log(result);
+    //   res.send(result);
+    // });
 
     app.delete("/components/:id", async (req, res) => {
       const id = req.params.id;
